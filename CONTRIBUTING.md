@@ -9,7 +9,7 @@ Welcome to CSI DMCE! We appreciate your interest in contributing. Before you get
 Prior to beginning your contributions, please ensure the following:
 
 - Possess a GitHub Account.
-- Complete your contributor registration on the [Hacktoberfest 2023 website.](https://hacktoberfest.com/)
+- Complete your contributor registration on the [Hacktoberfest 2024 website.](https://hacktoberfest.com/)
 
 <br/>
 
