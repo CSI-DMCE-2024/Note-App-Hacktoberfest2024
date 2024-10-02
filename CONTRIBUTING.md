@@ -1,4 +1,4 @@
-# Contributing to NotesApp-HacktoberFest-202
+# Contributing to NotesApp-HacktoberFest-2024
 
 Welcome to CSI DMCE! We appreciate your interest in contributing. Before you get started, please read and follow these guidelines.
 
