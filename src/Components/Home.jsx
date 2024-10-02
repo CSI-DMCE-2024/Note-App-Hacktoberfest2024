@@ -33,11 +33,13 @@ const Home = () => {
       };
   return (
     <div className="overflow-hidden">
-      <nav className="navbar navbar-dark d-flex justify-content-between align-items-center bg-dark px-3">
-        <img style={{height: '100px'}} src="/My Notes-logos_white.png" alt="My Notes" />
-        <div>
+      <nav className="navbar navbar-dark d-flex justify-content-between align-items-center bg-dark px-4 py-3">
+          <img className="img-fluid" style={{ height: '60px' }} src="/My Notes-logos_white.png" alt="My Notes" />
+        <div className="d-flex">
           <input
-            className=""
+            className="form-control me-2"
+            style={{ maxWidth: '300px' }}
+            type="search"
             name="search"
             value={search}
             placeholder="Search"
