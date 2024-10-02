@@ -2,7 +2,7 @@
 
 ## Maintainers
 
-[Ishaan Parsone](https://github.com/Ishaan-Parsone) & [Jainisha Pathak](https://github.com/JainishaPathak)
+https://github.com/varad177
 
 ## Built With
 
