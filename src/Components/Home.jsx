@@ -1,49 +1,62 @@
-
-
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import CreateTodo from "./CreateTodo";
 import TodoItem from "./TodoItem";
 import UpdateTodo from "./UpdateTodo";
 
 const Home = () => {
+  const [todo, setTodo] = useState(
+    localStorage.getItem("todo") ? JSON.parse(localStorage.getItem("todo")) : []
+  );
+  const [search, setSearch] = useState("");
+  const [alert, setAlert] = useState("");
 
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(todo));
+  }, [todo]);
 
-    const [todo, setTodo] = useState(
-        localStorage.getItem("todo") ? JSON.parse(localStorage.getItem("todo")) : []
-      );
-      const [search, setSearch] = useState("");
-      const [alert, setAlert] = useState("");
-    
-      useEffect(() => {
-        localStorage.setItem("todo", JSON.stringify(todo));
-      }, [todo]);
-    
-      const [editText, setEditText] = useState({
-        title: "",
-        description: "",
-        tag: "",
-        date: "",
-      });
-    
-      const ShowAlert = (s) => {
-        setAlert("Todo has been successfully " + s);
-        setTimeout(() => {
-          setAlert("");
-        }, 3000);
-      };
+  const [editText, setEditText] = useState({
+    title: "",
+    description: "",
+    tag: "",
+    date: "",
+  });
+
+  const ShowAlert = (s) => {
+    setAlert("Todo has been successfully " + s);
+    setTimeout(() => {
+      setAlert("");
+    }, 3000);
+  };
   return (
     <div className="overflow-hidden">
-      <nav className="navbar navbar-dark d-flex justify-content-between align-items-center bg-dark px-3">
-        <img style={{height: '100px'}} src="/My Notes-logos_white.png" alt="My Notes" />
-        <div>
-          <input
-            className=""
-            name="search"
-            value={search}
-            placeholder="Search"
-            onChange={(e) => setSearch(e.target.value)}
-            autoComplete="off"
-          />
+      <nav className="navbar navbar-dark bg-dark px-2 py-2 rounded-bottom shadow">
+        <div className="container-fluid">
+          <div className="row w-100 align-items-center">
+            <div className="col-auto pe-0">
+              <img
+                className="navbar-brand my-2"
+                style={{ height: "50px", maxWidth: "100%" }}
+                src="/My Notes-logos_white.png"
+                alt="My Notes"
+              />
+            </div>
+            <div className="col ps-2">
+              <input
+                className="form-control"
+                name="search"
+                value={search}
+                placeholder="Search"
+                onChange={(e) => setSearch(e.target.value)}
+                autoComplete="off"
+                style={{
+                  borderRadius: "20px",
+                  padding: "0.375rem 1rem",
+                  transition: "all 0.2s ease-in-out",
+                  maxWidth: "100%",
+                }}
+              />
+            </div>
+          </div>
         </div>
       </nav>
       {alert && (
@@ -63,9 +76,7 @@ const Home = () => {
         ShowAlert={ShowAlert}
       />
       <div className="row justify-content-center">
-        <h1 className="">
-          {todo.length === 0 && "No Notes Found"}
-        </h1>
+        <h1 className="">{todo.length === 0 && "No Notes Found"}</h1>
         {todo
           .filter((target) => {
             if (target.title.toLowerCase().includes(search.toLowerCase())) {
@@ -120,7 +131,7 @@ const Home = () => {
         </svg>
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
