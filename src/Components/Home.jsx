@@ -33,8 +33,8 @@ const Home = () => {
       };
   return (
     <div className="overflow-hidden">
-      <nav className="navbar navbar-dark d-flex justify-content-between align-items-center bg-dark px-3">
-        <img style={{height: '100px'}} src="/My Notes-logos_white.png" alt="My Notes" />
+      <nav className="navbar navbar-dark d-flex justify-content-between align-items-center bg-dark px-3 ms-5 me-5 ">
+        <img style={{height: '100px'}} src="/images-removebg-preview.png" alt="My Notes" />
         <div>
           <input
             className=""
@@ -62,7 +62,7 @@ const Home = () => {
         setTodo={setTodo}
         ShowAlert={ShowAlert}
       />
-      <div className="row justify-content-center">
+      <div className="row justify-content-center ms-5">
         <h1 className="">
           {todo.length === 0 && "No Notes Found"}
         </h1>
