@@ -1,49 +1,77 @@
-
-
 import React, { useEffect, useState } from 'react'
 import CreateTodo from "./CreateTodo";
 import TodoItem from "./TodoItem";
 import UpdateTodo from "./UpdateTodo";
+// import sum from "../../public/light.png"
 
 const Home = () => {
+  const [theme, setTheme] = useState('light')
 
+  const [todo, setTodo] = useState(
+    localStorage.getItem("todo") ? JSON.parse(localStorage.getItem("todo")) : []
+  );
+  const [search, setSearch] = useState("");
+  const [alert, setAlert] = useState("");
 
-    const [todo, setTodo] = useState(
-        localStorage.getItem("todo") ? JSON.parse(localStorage.getItem("todo")) : []
-      );
-      const [search, setSearch] = useState("");
-      const [alert, setAlert] = useState("");
-    
-      useEffect(() => {
-        localStorage.setItem("todo", JSON.stringify(todo));
-      }, [todo]);
-    
-      const [editText, setEditText] = useState({
-        title: "",
-        description: "",
-        tag: "",
-        date: "",
-      });
-    
-      const ShowAlert = (s) => {
-        setAlert("Todo has been successfully " + s);
-        setTimeout(() => {
-          setAlert("");
-        }, 3000);
-      };
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(todo));
+  }, [todo]);
+
+  const [editText, setEditText] = useState({
+    title: "",
+    description: "",
+    tag: "",
+    date: "",
+  });
+
+  const ShowAlert = (s) => {
+    setAlert("Todo has been successfully " + s);
+    setTimeout(() => {
+      setAlert("");
+    }, 3000);
+  };
+
+  const handleTheme = (e) => {
+    e.preventDefault();
+    if (theme === 'light') {
+      setTheme('dark')
+    }
+    else {
+      setTheme('light')
+    }
+  }
+
+  const checkTheme = () => {
+    if (theme === 'light') {
+      return true
+    }
+    else {
+      return false
+    }
+  }
   return (
-    <div className="overflow-hidden">
-      <nav className="navbar navbar-dark d-flex justify-content-between align-items-center bg-dark px-3">
-        <img style={{height: '100px'}} src="/My Notes-logos_white.png" alt="My Notes" />
-        <div>
-          <input
-            className=""
-            name="search"
-            value={search}
-            placeholder="Search"
-            onChange={(e) => setSearch(e.target.value)}
-            autoComplete="off"
-          />
+    <div className={`overflow-hidden bg-${checkTheme() ? 'light' : 'dark'}`} style={{minHeight: "100vh"}}>
+      <nav className={`navbar navbar-dark d-flex justify-content-between align-items-center px-3 bg-${checkTheme() ? 'dark' : 'secondary'}`}>
+        <img style={{ height: '100px' }} src="/My Notes-logos_white.png" alt="My Notes" />
+        <div className='d-flex justify-content-between gap-3'>
+          <div>
+            <input
+              className="form-control mr-sm-2"
+              name="search"
+              value={search}
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+              autoComplete="off"
+            />
+          </div>
+          <button className={`bg-${checkTheme() ? 'dark' : 'secondary'} border border-2 border-white rounded-circle`} onClick={handleTheme}>
+            {
+              checkTheme() ?
+                <img src="/light.png" alt="Sun for Light theme" width="25px" className='rounded-circle' />
+                :
+                <img src="/moon.png" alt="Moon for Dark theme" width="25px" className='rounded-circle' />
+            }
+          </button>
         </div>
       </nav>
       {alert && (
@@ -54,13 +82,14 @@ const Home = () => {
           {alert}
         </div>
       )}
-      <CreateTodo todo={todo} setTodo={setTodo} ShowAlert={ShowAlert} />
+      <CreateTodo todo={todo} setTodo={setTodo} ShowAlert={ShowAlert} checkTheme={checkTheme} />
       <UpdateTodo
         editText={editText}
         setEditText={setEditText}
         todo={todo}
         setTodo={setTodo}
         ShowAlert={ShowAlert}
+        checkTheme={checkTheme}
       />
       <div className="row justify-content-center">
         <h1 className="">
@@ -88,13 +117,14 @@ const Home = () => {
                 todo={todo}
                 setTodo={setTodo}
                 ShowAlert={ShowAlert}
+                theme={theme} checkTheme={checkTheme}
               />
             );
           })}
       </div>
       <button
         type="button"
-        className="btn btn-dark rounded-circle shadow-sm p-0"
+        className={`btn btn-${checkTheme() ? 'dark' : 'secondary'} rounded-circle shadow-sm p-0`}
         style={{
           position: "fixed",
           bottom: "30px",

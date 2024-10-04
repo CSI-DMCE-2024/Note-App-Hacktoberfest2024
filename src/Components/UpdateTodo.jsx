@@ -1,6 +1,6 @@
 import React from "react";
 
-function UpdateTodo({ editText, setEditText, todo, setTodo, ShowAlert }) {
+function UpdateTodo({ editText, setEditText, todo, setTodo, ShowAlert, checkTheme }) {
   const onChange = (e) => {
     const { value, name } = e.target;
     setEditText(() => {
@@ -30,9 +30,9 @@ function UpdateTodo({ editText, setEditText, todo, setTodo, ShowAlert }) {
       onSubmit={onSubmit}
     >
       <div className="modal-dialog">
-        <div className="modal-content">
+        <div className={`modal-content bg-${checkTheme() ? 'light' : 'dark'} text-${checkTheme() ? 'dark' : 'white'}`}>
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">
+            <h5 className={`modal-title text-${checkTheme() ? 'dark' : 'white'}`} id="exampleModalLabel">
               Edit Todo
             </h5>
             <button
@@ -44,12 +44,12 @@ function UpdateTodo({ editText, setEditText, todo, setTodo, ShowAlert }) {
           </div>
           <div className="modal-body">
             <div className="mb-3">
-              <label htmlFor="title" className="form-label">
+              <label htmlFor="title" className={`form-label text-${checkTheme() ? 'dark' : 'white'}`}>
                 Title
               </label>
               <input
                 type="text"
-                className="form-control"
+                className={`form-control bg-${checkTheme() ? 'light' : 'dark'} text-${checkTheme() ? 'dark' : 'white'}`}
                 id="title"
                 name="title"
                 value={editText.title}
@@ -57,11 +57,11 @@ function UpdateTodo({ editText, setEditText, todo, setTodo, ShowAlert }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="description" className="form-label">
+              <label htmlFor="description" className={`form-label text-${checkTheme() ? 'dark' : 'white'}`}>
                 Description
               </label>
               <textarea
-                className="form-control"
+                className={`form-control bg-${checkTheme() ? 'light' : 'dark'} text-${checkTheme() ? 'dark' : 'white'}`}
                 id="description"
                 name="description"
                 value={editText.description}
@@ -70,12 +70,12 @@ function UpdateTodo({ editText, setEditText, todo, setTodo, ShowAlert }) {
               ></textarea>
             </div>
             <div className="mb-3">
-              <label htmlFor="tag" className="form-label">
+              <label htmlFor="tag" className={`form-label text-${checkTheme() ? 'dark' : 'white'}`}>
                 Tag
               </label>
               <input
                 type="text"
-                className="form-control"
+                className={`form-control bg-${checkTheme() ? 'light' : 'dark'} text-${checkTheme() ? 'dark' : 'white'}`}
                 id="tag"
                 name="tag"
                 value={editText.tag}
@@ -83,12 +83,12 @@ function UpdateTodo({ editText, setEditText, todo, setTodo, ShowAlert }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="due-date" className="form-label">
+              <label htmlFor="due-date" className={`form-label text-${checkTheme() ? 'dark' : 'white'}`}>
                 Due Date
               </label>
               <input
                 type="date"
-                className="form-control"
+                className={`form-control bg-${checkTheme() ? 'light' : 'dark'} text-${checkTheme() ? 'dark' : 'white'}`}
                 id="dueDate"
                 name="dueDate"
                 value={editText.dueDate}
@@ -99,7 +99,7 @@ function UpdateTodo({ editText, setEditText, todo, setTodo, ShowAlert }) {
           <div className="modal-footer">
             <button
               type="submit"
-              className="btn btn-dark"
+              className={`btn btn-${checkTheme() ? 'dark' : 'secondary'}`}
               data-bs-dismiss="modal"
               disabled={!editText.title}
             >

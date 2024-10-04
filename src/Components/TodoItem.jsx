@@ -1,6 +1,6 @@
 import React from "react";
 
-function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert }) {
+function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert, theme, checkTheme }) {
   const editHandler = () => {
     setEditText({
       ...editText,
@@ -24,23 +24,22 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert }) {
 
   return (
     <div
-      className={`note card ${
-        isDueDatePassed
-          ? "border-danger card m-2 shadow-sm"
-          : "card m-2 shadow-sm"
-      }`}
+      className={`note card ${isDueDatePassed
+        ? `border border-danger border-2 card m-2 shadow-sm bg-${checkTheme() ? 'light' : 'dark'}`
+        : `border border-success border-2 card m-2 shadow-sm bg-${checkTheme() ? 'light' : 'dark'}`
+        }`}
       style={{ width: "20rem" }}
     >
-      <div className="card-body d-flex flex-column justify-content-between text-center">
+      <div className={`card-body d-flex flex-column justify-content-between text-center text-${checkTheme() ? 'dark' : 'white'}`}>
         <div className="d-flex justify-content-between">
-          <h6>{target.tag}</h6>
+          <h6 className={`text-${checkTheme() ? 'dark' : 'white'}`}>{target.tag}</h6>
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
               fill="currentColor"
-              className="bi bi-pen-fill me-2"
+              className={`bi bi-pen-fill me-2 text-${checkTheme() ? 'dark' : 'white'}`}
               viewBox="0 0 16 16"
               data-bs-toggle="modal"
               data-bs-target="#updateNotes"
@@ -55,7 +54,7 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert }) {
               width="16"
               height="16"
               fill="currentColor"
-              className="bi bi-trash-fill ms-2"
+              className={`bi bi-trash-fill ms-2 text-${checkTheme() ? 'dark' : 'white'}`}
               viewBox="0 0 16 16"
               style={{ cursor: "pointer" }}
               onClick={deleteHandler}
@@ -64,11 +63,10 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert }) {
             </svg>
           </div>
         </div>
-        <h4 className="card-title border-bottom pb-2">{target.title}</h4>
-        <p className="card-text">{target.description}</p>
-        <p className="card-text mt-2">Due Date: {target.dueDate}</p>
-        <small className="text-muted">Last Updated {currentDate} ({new Date(currentTime).toLocaleTimeString()})</small>
-
+        <h4 className={`card-title border-bottom pb-2 text-${checkTheme() ? 'dark' : 'white'}`}>{target.title}</h4>
+        <p className={`card-text text-${checkTheme() ? 'dark' : 'white'}`}>{target.description}</p>
+        <p className={`card-text mt-2 text-${checkTheme() ? 'dark' : 'white'}`}>Due Date: {target.dueDate}</p>
+        <small className={`text-muted text-${checkTheme() ? 'dark' : 'white'}`}>Last Updated {currentDate} ({new Date(currentTime).toLocaleTimeString()})</small>
       </div>
     </div>
   );
