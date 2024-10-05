@@ -34,16 +34,20 @@ const Home = () => {
   return (
     <div className="overflow-hidden">
       <nav className="navbar navbar-dark d-flex justify-content-between align-items-center bg-dark px-3">
-        <img style={{height: '100px'}} src="/My Notes-logos_white.png" alt="My Notes" />
-        <div>
+        <div className="d-flex align-items-center" style={{flexShrink: 0}}>
+            <img style={{height: '45px'}} 
+            src="/My Notes-logos_white.png" 
+            alt="My Notes" />
+        </div>
+        <div className="flex-grow-1 ms-3">
           <input
-            className=""
+            className="form-control bg-dark text-light"
             name="search"
             value={search}
             placeholder="Search"
             onChange={(e) => setSearch(e.target.value)}
             autoComplete="off"
-          />
+            style={{minWidth: '0'}} />
         </div>
       </nav>
       {alert && (
