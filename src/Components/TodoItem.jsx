@@ -7,28 +7,38 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert }) {
       title: target.title,
       description: target.description,
       tag: target.tag,
-      date: new Date().toLocaleDateString,
+      date: new Date().toLocaleDateString(),
       id: target.id,
+      isCompleted: target.isCompleted // Keep the current isCompleted status
     });
   };
+
+  // Function to toggle the completion status
+  const toggleCompletion = () => {
+    const updatedTodo = todo.map((item) =>
+      item.id === target.id
+        ? { ...item, isCompleted: !item.isCompleted }
+        : item
+    );
+    setTodo(updatedTodo);
+    ShowAlert(target.isCompleted ? "Marked as incomplete" : "Marked as completed");
+  };
+
   const deleteHandler = () => {
     setTodo(todo.filter((el) => el.id !== target.id));
     ShowAlert("Deleted");
   };
 
   const isDueDatePassed = new Date(target.dueDate) < new Date(target.date);
-
   let currentTime = new Date().getTime();
   let currentDate = new Date().toJSON().slice(0, 10);
 
-
   return (
     <div
-      className={`note card ${
-        isDueDatePassed
-          ? "border-danger card m-2 shadow-sm"
-          : "card m-2 shadow-sm"
-      }`}
+      className={`note card ${isDueDatePassed
+        ? "border-danger card m-2 shadow-sm"
+        : "card m-2 shadow-sm"
+        }`}
       style={{ width: "20rem" }}
     >
       <div className="card-body d-flex flex-column justify-content-between text-center">
@@ -69,6 +79,18 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert }) {
         <p className="card-text mt-2">Due Date: {target.dueDate}</p>
         <small className="text-muted">Last Updated {currentDate} ({new Date(currentTime).toLocaleTimeString()})</small>
 
+        {/* Checkbox to mark the task as completed */}
+        <div className="form-check mt-2">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={target.isCompleted}
+            onChange={toggleCompletion}
+          />
+          <label className="form-check-label">
+            {target.isCompleted ? "Completed" : "Mark as Completed"}
+          </label>
+        </div>
       </div>
     </div>
   );

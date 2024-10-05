@@ -7,6 +7,7 @@ function CreateTodo({ todo, setTodo, ShowAlert }) {
     tag: "",
     date: "",
     dueDate: "",
+    isCompleted: false
   });
 
   // const [dueDate, setDueDate] = useState("");
@@ -36,6 +37,7 @@ function CreateTodo({ todo, setTodo, ShowAlert }) {
         date: new Date().toLocaleDateString(),
         id: new Date().getTime().toString(),
         dueDate: text.dueDate,
+        isCompleted: false
       },
     ]);
     setText({
