@@ -1,8 +1,8 @@
-# NOTESAPP HACKTOBERFEST 2024
+## NOTESAPP HACKTOBERFEST 2024
 
 ## Maintainers
 
-https://github.com/varad177
+<h2><a href="https://github.com/ReshmaZore">Reshma Zore</a> && <a href="https://github.com/mayureshh27">Mayuresh Chavan</a></h2>
 
 ## Built With
 
