@@ -7,20 +7,31 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert, the
       title: target.title,
       description: target.description,
       tag: target.tag,
-      date: new Date().toLocaleDateString,
+      date: new Date().toLocaleDateString(),
       id: target.id,
+      isCompleted: target.isCompleted // Keep the current isCompleted status
     });
   };
+
+  // Function to toggle the completion status
+  const toggleCompletion = () => {
+    const updatedTodo = todo.map((item) =>
+      item.id === target.id
+        ? { ...item, isCompleted: !item.isCompleted }
+        : item
+    );
+    setTodo(updatedTodo);
+    ShowAlert(target.isCompleted ? "Marked as incomplete" : "Marked as completed");
+  };
+
   const deleteHandler = () => {
     setTodo(todo.filter((el) => el.id !== target.id));
     ShowAlert("Deleted");
   };
 
   const isDueDatePassed = new Date(target.dueDate) < new Date(target.date);
-
   let currentTime = new Date().getTime();
   let currentDate = new Date().toJSON().slice(0, 10);
-
 
   return (
     <div
@@ -67,6 +78,19 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert, the
         <p className={`card-text text-${checkTheme() ? 'dark' : 'white'}`}>{target.description}</p>
         <p className={`card-text mt-2 text-${checkTheme() ? 'dark' : 'white'}`}>Due Date: {target.dueDate}</p>
         <small className={`text-muted text-${checkTheme() ? 'dark' : 'white'}`}>Last Updated {currentDate} ({new Date(currentTime).toLocaleTimeString()})</small>
+
+        {/* Checkbox to mark the task as completed */}
+        <div className="form-check mt-2">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={target.isCompleted}
+            onChange={toggleCompletion}
+          />
+          <label className="form-check-label">
+            {target.isCompleted ? "Completed" : "Mark as Completed"}
+          </label>
+        </div>
       </div>
     </div>
   );
