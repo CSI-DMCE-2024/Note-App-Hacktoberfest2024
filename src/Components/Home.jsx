@@ -1,43 +1,52 @@
-
-
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import CreateTodo from "./CreateTodo";
 import TodoItem from "./TodoItem";
 import UpdateTodo from "./UpdateTodo";
 
 const Home = () => {
+  const colors = ["#ff9999", "#99ccff", "#9999ff", "#cc99ff", "#ff99ff"];
+  const [navbarColor, setNavbarColor] = useState("#343a40");
+  const [todo, setTodo] = useState(
+    localStorage.getItem("todo") ? JSON.parse(localStorage.getItem("todo")) : []
+  );
+  const [search, setSearch] = useState("");
+  const [alert, setAlert] = useState("");
+  const changeNavbarColor = (color) => {
+    setNavbarColor(color);
+  };
 
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(todo));
+  }, [todo]);
 
-    const [todo, setTodo] = useState(
-        localStorage.getItem("todo") ? JSON.parse(localStorage.getItem("todo")) : []
-      );
-      const [search, setSearch] = useState("");
-      const [alert, setAlert] = useState("");
-    
-      useEffect(() => {
-        localStorage.setItem("todo", JSON.stringify(todo));
-      }, [todo]);
-    
-      const [editText, setEditText] = useState({
-        title: "",
-        description: "",
-        tag: "",
-        date: "",
-      });
-    
-      const ShowAlert = (s) => {
-        setAlert("Todo has been successfully " + s);
-        setTimeout(() => {
-          setAlert("");
-        }, 3000);
-      };
+  const [editText, setEditText] = useState({
+    title: "",
+    description: "",
+    tag: "",
+    date: "",
+  });
+
+  const ShowAlert = (s) => {
+    setAlert("Todo has been successfully " + s);
+    setTimeout(() => {
+      setAlert("");
+    }, 3000);
+  };
   return (
     <div className="overflow-hidden">
-      <nav className="navbar navbar-dark d-flex justify-content-between align-items-center bg-dark px-3">
-        <div className="d-flex align-items-center" style={{flexShrink: 0}}>
-            <img style={{height: '45px'}} 
-            src="/My Notes-logos_white.png" 
-            alt="My Notes" />
+      <nav
+        className="navbar navbar-dark d-flex justify-content-between align-items-center"
+        style={{
+          backgroundColor: navbarColor,
+          transition: "background-color 0.3s",
+        }}
+      >
+        <div className="d-flex align-items-center" style={{ flexShrink: 0 }}>
+          <img
+            style={{ height: "45px" }}
+            src="/My Notes-logos_white.png"
+            alt="My Notes"
+          />
         </div>
         <div className="flex-grow-1 ms-3">
           <input
@@ -47,7 +56,23 @@ const Home = () => {
             placeholder="Search"
             onChange={(e) => setSearch(e.target.value)}
             autoComplete="off"
-            style={{minWidth: '0'}} />
+            style={{ minWidth: "0" }}
+          />
+        </div>
+        <div className="d-flex">
+          {colors.map((color, index) => (
+            <button
+              key={index}
+              className="btn rounded-circle mx-1"
+              style={{
+                backgroundColor: color,
+                width: "30px",
+                height: "30px",
+                border: "none",
+              }}
+              onClick={() => changeNavbarColor(color)}
+            ></button>
+          ))}
         </div>
       </nav>
       {alert && (
@@ -67,9 +92,7 @@ const Home = () => {
         ShowAlert={ShowAlert}
       />
       <div className="row justify-content-center">
-        <h1 className="">
-          {todo.length === 0 && "No Notes Found"}
-        </h1>
+        <h1 className="">{todo.length === 0 && "No Notes Found"}</h1>
         {todo
           .filter((target) => {
             if (target.title.toLowerCase().includes(search.toLowerCase())) {
@@ -124,7 +147,7 @@ const Home = () => {
         </svg>
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
