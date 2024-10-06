@@ -1,4 +1,5 @@
 import React from "react";
+import "./ToDoCard.css"
 
 function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert }) {
   const editHandler = () => {
@@ -35,7 +36,7 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert }) {
 
   return (
     <div
-      className={`note card ${isDueDatePassed
+      className={`note card todo-card ${isDueDatePassed
         ? "border-danger card m-2 shadow-sm"
         : "card m-2 shadow-sm"
         }`}
