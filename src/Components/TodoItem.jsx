@@ -1,4 +1,5 @@
 import React from "react";
+import "./ToDoCard.css"
 
 function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert, theme, checkTheme }) {
   const editHandler = () => {
@@ -35,10 +36,10 @@ function TodoItem({ target, editText, setEditText, todo, setTodo, ShowAlert, the
 
   return (
     <div
-      className={`note card ${isDueDatePassed
+      className={`note card todo-card ${isDueDatePassed
         ? `border border-danger border-2 card m-2 shadow-sm bg-${checkTheme() ? 'light' : 'dark'}`
         : `border border-success border-2 card m-2 shadow-sm bg-${checkTheme() ? 'light' : 'dark'}`
-        }`}
+      }`}
       style={{ width: "20rem" }}
     >
       <div className={`card-body d-flex flex-column justify-content-between text-center text-${checkTheme() ? 'dark' : 'white'}`}>
