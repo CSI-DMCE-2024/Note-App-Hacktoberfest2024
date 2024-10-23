@@ -23,6 +23,7 @@ const Home = () => {
         description: "",
         tag: "",
         date: "",
+        dueDate: "",
       });
     
       const ShowAlert = (s) => {
